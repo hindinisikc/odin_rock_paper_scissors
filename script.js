@@ -39,18 +39,34 @@ function playRound(humanSelection, computerSelection) {
     }
 }
 
-alert(playRound(getHumanChoice(), getComputerChoice()));
+// alert(playRound(getHumanChoice(), getComputerChoice()));
 
 
 
 
-// function playGame(humanChoice, computerChoice) {
-//     for (let i = 0; i < 5; i++) {
-//         const humanSelection = getHumanChoice();
-//         const computerSelection = getComputerChoice();
-//         alert()
-//     }
-// }
+
+
+function playGame() {
+    humanScore = 0;  // Reset score before game starts
+    computerScore = 0;
+    for (let i = 0; i < 5; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        alert(playRound(humanSelection, computerSelection));
+        alert(`Scores: You: ${humanScore}, Computer: ${computerScore}`);
+    }
+
+    if (humanScore > computerScore) {
+        alert("Congratulations! You won the game!");
+    } else if (humanScore < computerScore) {
+        alert("Game over! The computer won.");
+    } else {
+        alert("It's a tie game!");
+    }
+}
+
+
+playGame();
 
 // const humanSelection = getHumanChoice();
 // const computerSelection = getComputerChoice();
