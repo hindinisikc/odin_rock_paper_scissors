@@ -1,25 +1,30 @@
 let humanScore = 0;
 let computerScore = 0;
+let roundsPlayed = 0; // Track number of rounds
 
+document.getElementById("rock").addEventListener("click", handleButtonClick);
+document.getElementById("paper").addEventListener("click", handleButtonClick);
+document.getElementById("scissors").addEventListener("click", handleButtonClick);
 
+function handleButtonClick(event) {
+    if (roundsPlayed >= 5) return; // Stop if 5 rounds are played
 
-function getHumanChoice() {
-    const playerChoice = prompt("Rock... Paper.... or Scissors...?").toLowerCase();
-    return playerChoice;
+    const humanSelection = event.target.id; // Get player's choice
+    const computerSelection = getComputerChoice(); // Get computer's choice
+    const result = playRound(humanSelection, computerSelection); // Determine winner
+
+    roundsPlayed++; // Increment round counter
+    updateScore(result); // Update score and display result
+
+    if (roundsPlayed === 5) {
+        setTimeout(endGame, 500); // Small delay before ending the game
+    }
 }
-
-// alert(getHumanChoice());
-
-
 
 function getComputerChoice() {
-    const choices = ["rock", "paper", "scissors"]; // Array of choices
-    const randomIndex = Math.floor(Math.random() * choices.length); // Generate a random index (0, 1, or 2)
-    return choices[randomIndex]; // Return the random choice
+    const choices = ["rock", "paper", "scissors"];
+    return choices[Math.floor(Math.random() * choices.length)];
 }
-
-// alert(getComputerChoice());   
-
 
 function playRound(humanSelection, computerSelection) {
     if (humanSelection === computerSelection) {
@@ -29,7 +34,7 @@ function playRound(humanSelection, computerSelection) {
     if (
         (humanSelection === "rock" && computerSelection === "scissors") ||
         (humanSelection === "paper" && computerSelection === "rock") ||
-        (humanSelection === "scissors" && computerSelection === "paper") 
+        (humanSelection === "scissors" && computerSelection === "paper")
     ) {
         humanScore++;
         return `You win! ${humanSelection} beats ${computerSelection}`;
@@ -39,34 +44,45 @@ function playRound(humanSelection, computerSelection) {
     }
 }
 
-// alert(playRound(getHumanChoice(), getComputerChoice()));
-
-
-
-
-
-
-function playGame() {
-    humanScore = 0;  // Reset score before game starts
-    computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        alert(playRound(humanSelection, computerSelection));
-        alert(`Scores: You: ${humanScore}, Computer: ${computerScore}`);
-    }
-
-    if (humanScore > computerScore) {
-        alert("Congratulations! You won the game!");
-    } else if (humanScore < computerScore) {
-        alert("Game over! The computer won.");
-    } else {
-        alert("It's a tie game!");
-    }
+function updateScore(result) {
+    document.getElementById("result").textContent = result;
+    document.getElementById("score").textContent = `Player: ${humanScore} | Computer: ${computerScore}`;
 }
 
+function endGame() {
+    let finalMessage = "";
 
-playGame();
+    if (humanScore > computerScore) {
+        finalMessage = "Congratulations! You won the game!";
+    } else if (humanScore < computerScore) {
+        finalMessage = "Game over! The computer won.";
+    } else {
+        finalMessage = "It's a tie game!";
+    }
 
-// const humanSelection = getHumanChoice();
-// const computerSelection = getComputerChoice();
+    document.getElementById("result").textContent = finalMessage;
+
+    // Disable buttons after game ends
+    document.getElementById("rock").disabled = true;
+    document.getElementById("paper").disabled = true;
+    document.getElementById("scissors").disabled = true;
+
+    // Show Restart button
+    document.getElementById("restart").style.display = "block";
+}
+
+// Restart Game
+document.getElementById("restart").addEventListener("click", function() {
+    humanScore = 0;
+    computerScore = 0;
+    roundsPlayed = 0;
+    
+    document.getElementById("score").textContent = `Player: 0 | Computer: 0`;
+    document.getElementById("result").textContent = "Choose Rock, Paper, or Scissors!";
+    
+    document.getElementById("rock").disabled = false;
+    document.getElementById("paper").disabled = false;
+    document.getElementById("scissors").disabled = false;
+    
+    this.style.display = "none"; // Hide restart button
+});

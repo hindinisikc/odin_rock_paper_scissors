@@ -8,13 +8,24 @@
 </head>
 <body>
     <h1>Rock Paper Scissors</h1>
-    <div class="buttons">
-        <button class="button" id="rock">‎ 🗿 ‎</button>
-        <button class="button" id="paper">🧻</button>
-        <button class="button" id="scissors">✂️</button>
+    <div class="gameContainer">
+    
+        <div class="humanButtons">
+            <h1>HUMAN</h1>
+            <button class="button" id="rock">‎ 🗿 ‎</button>
+            <button class="button" id="paper">🧻</button>
+            <button class="button" id="scissors">✂️</button>
+        </div>
+    
+    
+
     </div>
 
-    <p id="result"></p>
+    
+
+    <p id="result">Choose Rock, Paper, or Scissors!</p>
+    <button id="restart"  ">Play again?</button>
+    <p id="score"><span id="human">Human: 0</span> | <span id="computer">Computer: 0</span></p>
     <script src="script.js"></script>
 </body>
 </html>
