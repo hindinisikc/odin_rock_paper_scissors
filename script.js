@@ -46,7 +46,7 @@ function playRound(humanSelection, computerSelection) {
 
 function updateScore(result) {
     document.getElementById("result").textContent = result;
-    document.getElementById("score").textContent = `Player: ${humanScore} | Computer: ${computerScore}`;
+    document.getElementById("score").textContent = `Human: ${humanScore} | Computer: ${computerScore}`;
 }
 
 function endGame() {
@@ -77,7 +77,7 @@ document.getElementById("restart").addEventListener("click", function() {
     computerScore = 0;
     roundsPlayed = 0;
     
-    document.getElementById("score").textContent = `Player: 0 | Computer: 0`;
+    document.getElementById("score").textContent = `Human: 0 | Computer: 0`;
     document.getElementById("result").textContent = "Choose Rock, Paper, or Scissors!";
     
     document.getElementById("rock").disabled = false;
